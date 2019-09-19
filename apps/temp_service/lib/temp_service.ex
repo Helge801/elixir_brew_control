@@ -33,42 +33,23 @@ defmodule TempService do
   def read_temps(), do: GenServer.call(__MODULE__, :read_temps)
 
   def handle_call(:read_temps, _from, state) do
-    temps =
-      state
-      |> read_from_sensors
-      |> capture_temps
-      |> extract_temps
-      |> convert_temps
-
-    {:reply, temps, state}
+    {:reply, get_temps(state), state}
   end
 
   def handle_call(:get_state, _from, state) do
     {:reply, state, state}
   end
 
-  defp extract_temps(sensors) do 
-    Enum.map(sensors, fn {sensor, capture} -> 
-      {sensor, extract_temp(capture)}
-    end)
-  end
-
-  defp read_from_sensors(sensors) do
+  defp get_temps(sensors) do
     Enum.map(sensors, fn {sensor, path} ->
-      output = read_from_sensor(path)
-      {sensor, output}
-    end)
-  end
+      temp = 
+        path
+        |> read_from_sensor
+        |> capture_temp
+        |> extract_temp
+        |> convert_temp
 
-  defp capture_temps(sensors) do
-    Enum.map(sensors, fn {sensor, temp} ->
-      {sensor, capture_temp(temp)}
-    end)
-  end
-
-  defp convert_temps(sensors) do
-    Enum.map(sensors, fn {sensor, temp} ->
-      {sensor, convert_temp(temp)}
+      {sensor, temp}
     end)
   end
 
@@ -82,12 +63,10 @@ defmodule TempService do
   defp convert_temp({:error,_} = temp), do: temp
 
   defp convert_temp(temp) do
-    temp =
-      temp
-        |> Float.parse
-        |> elem(0)
-
-    ((temp / 1000) * 1.8) + 32 |> Float.round(1)
+    case Float.parse(temp) do
+      {converted, _ } -> ((converted / 1000) * 1.8) + 32 |> Float.round(1)
+        :error -> {:error, "Could not convert #{inspect(temp)} to float"}
+    end
   end
 
 
