@@ -8,6 +8,7 @@ defmodule TempService.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
+      TempService
       # Starts a worker by calling: TempService.Worker.start_link(arg)
       # {TempService.Worker, arg}
     ]

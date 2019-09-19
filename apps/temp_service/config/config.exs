@@ -8,12 +8,12 @@ use Mix.Config
 # if you want to provide default values for your application for
 # third-party users, it should be done in your "mix.exs" file.
 
-  config :temp_service, sensors: %{
-    ambiant: "01145506e3aa",
-    internal: "011454ec36aa",
-    fermentor_1: "011454e8adaa",
-    fermentor_2: "011454e8a2aa"
-  }
+config :temp_service, sensors: [
+  ambiant: "28-01145506e3aa",
+  internal: "28-011454ec36aa",
+  fermentor_1: "28-011454e8adaa",
+  fermentor_2: "28-011454e8a2aa"
+]
 
 # You can configure your application as:
 #
