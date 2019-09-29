@@ -1,4 +1,4 @@
-defmodule Contoller do
+defmodule Controller do
   @moduledoc """
   Documentation for Contoller.
   """
@@ -26,14 +26,14 @@ defmodule Contoller do
     {:ok, initial_state}
   end
 
-  def handle_cast({:update_setting, setting, setting_state}, _from, state) do
+  def handle_cast({:update_setting, setting, setting_state}, state) do
     new_state = update_setting(setting, setting_state, state)
-    {:no_reply, new_state}
+    {:noreply, new_state}
   end
 
-  def handle_cast(:step, _from, state) do
+  def handle_cast(:step, state) do
     step(state)
-    {:no_reply, state}
+    {:noreply, state}
   end
 
   defp update_setting(setting, setting_state, state)

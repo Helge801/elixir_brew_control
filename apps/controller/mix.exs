@@ -1,9 +1,9 @@
-defmodule Contoller.MixProject do
+defmodule Controller.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :contoller,
+      app: :controller,
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
@@ -15,7 +15,7 @@ defmodule Contoller.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Contoller.Application, []}
+      mod: {Controller.Application, []}
     ]
   end
 

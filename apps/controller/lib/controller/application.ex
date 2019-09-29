@@ -1,4 +1,4 @@
-defmodule Contoller.Application do
+defmodule Controller.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,8 +8,7 @@ defmodule Contoller.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Starts a worker by calling: Contoller.Worker.start_link(arg)
-      # {Contoller.Worker, arg}
+      {Controller, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
