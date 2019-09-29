@@ -2,6 +2,7 @@ defmodule TempService do
   @moduledoc """
   Documentation for TempService.
   """
+  require Logger
 
   @device_directory "/sys/bus/w1/devices/"
   @slave_location "/w1_slave"
@@ -14,6 +15,7 @@ defmodule TempService do
   end
 
   def init(_state) do
+    Logger.info("#{__MODULE__}.init")
     initial_state =
       @sensors
         |> Enum.map(&build_path/1)

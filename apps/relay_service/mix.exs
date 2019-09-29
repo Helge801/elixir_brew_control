@@ -1,9 +1,9 @@
-defmodule TempService.MixProject do
+defmodule RelayService.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :temp_service,
+      app: :relay_service,
       version: "0.1.0",
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
@@ -15,12 +15,14 @@ defmodule TempService.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {TempService.Application, []}
+      mod: {RelayService.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    []
+    [
+      {:circuits_gpio, "~> 0.4"}
+    ]
   end
 end
